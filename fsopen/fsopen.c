@@ -5,7 +5,7 @@
 
 void debug(char* message) {
 
-	if (1) {
+	if (getenv("FS_OPEN_DEBUG")) {
 		printf("INFO: %s\n", message);
 	}
 }
