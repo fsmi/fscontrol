@@ -2,12 +2,17 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include <time.h>
 
 void debug(char* message) {
 
 	if (getenv("FS_OPEN_DEBUG")) {
 		printf("INFO: %s\n", message);
 	}
+}
+
+void insertTime(FILE* file) {
+	fprintf(file, "\n%u\n", (unsigned)time(NULL));
 }
 
 /**
@@ -57,12 +62,15 @@ int main(int argc, char* argv[]) {
 		
 		if (strcmp(input, "open") == 0) {
 			fputc('1', open);
+			insertTime(open);
 		}
 		else if (strcmp(input, "close") == 0) {
 			fputc('0', open);
+			insertTime(open);
 		} else {
 			printf("Don't know what you mean: %s\n" , input);
 		}
+		
 		
 		fflush(open);
 		fclose(open);
